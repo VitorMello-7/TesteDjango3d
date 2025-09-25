@@ -1,0 +1,113 @@
+# ---- Python bytecode and caches ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- C extensions ----
+*.so
+
+# ---- Distribution / packaging ----
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ---- Installer logs ----
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ---- Unit test / coverage ----
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.ruff_cache/
+.pyright/
+.pyrightcache/
+
+# ---- Type checkers / analyzers ----
+.mypy_cache/
+.pyre/
+.pytype/
+
+# ---- Django ----
+*.log
+local_settings.py
+# SQLite (se usar)
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+# Arquivos coletados por collectstatic (STATIC_ROOT)
+staticfiles/
+# Arquivos de mídia gerados por upload
+media/
+
+# ---- Environments ----
+.env
+.env.*
+.env.local
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ---- IDEs / Editors ----
+# VS Code
+.vscode/
+# PyCharm / IntelliJ
+.idea/
+# Outros
+*.swp
+*.swo
+
+# ---- OS / Sistema ----
+# Windows
+Thumbs.db
+Desktop.ini
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Linux
+.directory
+
+# ---- Logs / temporários ----
+*.tmp
+*.temp
+*.bak
+*.orig
+*.log
+logs/
+
+# ---- Node (caso use front-end) ----
+node_modules/
+*.tsbuildinfo
+
+# ---- Misc ----
+# Arquivos de credenciais ou exemplos: mantenha apenas os exemplos
+!.env.example
+!.env.sample
+!.env.template
