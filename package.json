@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "admin-lte": "^4.0.0-rc4",
+    "echarts": "^6.0.0"
+  }
+}
