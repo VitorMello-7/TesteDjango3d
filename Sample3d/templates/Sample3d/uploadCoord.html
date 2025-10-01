@@ -372,7 +372,8 @@
               </div>
               <div class="card-body">
                 <div class="chart">
-                  
+                  <!-- Container para o ECharts 3D -->
+                  <div id="echart3d" style="width: 100%; height: 500px;"></div>
                 </div>
               </div>
               <!-- /.card-body -->
@@ -415,82 +416,56 @@
 <script src="{% static 'admin-lte/dist/js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'admin-lte/dist/js/demo.js' %}"></script>
-<!-- Page specific script -->
+<!-- Page specific script: ECharts 3D -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
 <script>
-  $(function () {
-    /* ChartJS
-     * -------
-     * Here we will create a few charts using ChartJS
-     */
-
-    //--------------
-    //- AREA CHART -
-    //--------------
-
-    // Get context with jQuery - using jQuery's .get() method.
-    option = {
-  tooltip: {},
-  backgroundColor: '#fff',
-  visualMap: {
-    show: false,
-    dimension: 2,
-    min: -1,
-    max: 1,
-    inRange: {
-      color: [
-        '#313695',
-        '#4575b4',
-        '#74add1',
-        '#abd9e9',
-        '#e0f3f8',
-        '#ffffbf',
-        '#fee090',
-        '#fdae61',
-        '#f46d43',
-        '#d73027',
-        '#a50026'
-      ]
-    }
-  },
-  xAxis3D: {
-    type: 'value'
-  },
-  yAxis3D: {
-    type: 'value'
-  },
-  zAxis3D: {
-    type: 'value'
-  },
-  grid3D: {
-    viewControl: {
-      // projection: 'orthographic'
-    }
-  },
-  series: [
-    {
-      type: 'surface',
-      wireframe: {
-        // show: false
-      },
-      equation: {
-        x: {
-          step: 0.05
-        },
-        y: {
-          step: 0.05
-        },
-        z: function (x, y) {
-          if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
-            return '-';
-          }
-          return Math.sin(x * Math.PI) * Math.sin(y * Math.PI);
+  document.addEventListener('DOMContentLoaded', function () {
+    const el = document.getElementById('echart3d');
+    if (!el) return;
+    const chart = echarts.init(el);
+    const option = {
+      tooltip: {},
+      backgroundColor: '#fff',
+      visualMap: {
+        show: false,
+        dimension: 2,
+        min: -1,
+        max: 1,
+        inRange: {
+          color: [
+            '#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8',
+            '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026'
+          ]
         }
-      }
-    }
-  ]
-};
-  })
-</script>
+      },
+      xAxis3D: { type: 'value' },
+      yAxis3D: { type: 'value' },
+      zAxis3D: { type: 'value' },
+      grid3D: {
+        viewControl: {
+          // projection: 'orthographic'
+        }
+      },
+      series: [
+        {
+          type: 'surface',
+          wireframe: { /* show: false */ },
+          equation: {
+            x: { step: 0.05 },
+            y: { step: 0.05 },
+            z: function (x, y) {
+              if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) return '-';
+              return Math.sin(x * Math.PI) * Math.sin(y * Math.PI);
+            }
+          }
+        }
+      ]
+    };
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+  });
+  </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"98551a70390fdf4d","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.9.1","token":"2437d112162f4ec4b63c3ca0eb38fb20"}' crossorigin="anonymous"></script>
 </body>
 </html>
