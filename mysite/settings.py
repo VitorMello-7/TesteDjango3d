@@ -104,12 +104,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': os.getenv('DB_NAME', ''),
-        'USER': os.getenv('DB_USER', ''),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'ENGINE': ('django.db.backends.postgresql'),
+        'NAME': ('PALEO3D'),
+        'USER': ('postgres'),
+        'PASSWORD': ('VmJm2964@@'),
+        'HOST': ('localhost'),
+        'PORT': ('5432'),
     }
 }
 
