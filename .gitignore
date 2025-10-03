@@ -107,7 +107,6 @@ node_modules/
 *.tsbuildinfo
 
 # ---- Misc ----
-# Arquivos de credenciais ou exemplos: mantenha apenas os exemplos
-!.env.example
+# Arquivos de credenciais ou exemplos
 !.env.sample
 !.env.template

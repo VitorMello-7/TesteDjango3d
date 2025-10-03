@@ -150,6 +150,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# In development, expose AdminLTE assets directly from node_modules
+# This lets you reference paths like {% static 'dist/css/adminlte.min.css' %}
+# and {% static 'plugins/jquery/jquery.min.js' %}
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    BASE_DIR / 'node_modules' / 'admin-lte',
+    BASE_DIR / 'node_modules',
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

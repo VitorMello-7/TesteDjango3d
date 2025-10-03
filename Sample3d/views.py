@@ -1,7 +1,6 @@
-from lib2to3.fixes.fix_input import context
 from django.http import HttpResponse
+from django.shortcuts import render
 from .models import Coord
-from django.template import loader
 
 # Create your views here.
 
@@ -9,8 +8,6 @@ from django.template import loader
 #     return HttpResponse("Hello, world. You're at the Sample3d index.")
 
 def uploadCoord(request):
-    template = loader.get_template('sample3d/uploadCoord.html')
-
     if request.method == "POST":
         depth = request.POST.get("depth")
         latitude = request.POST.get("latitude")
@@ -18,4 +15,5 @@ def uploadCoord(request):
         coord = Coord(depth=depth, latitude=latitude, longitude=longitude)
         coord.save()
         return HttpResponse("Coordinates uploaded successfully.")
-    return HttpResponse(template.render(context, request))
+    # Adjusted template path to match your folder: Sample3d/templates/Sample3dTemplates/uploadCoord.html
+    return render(request, "Sample3d/uploadCoord.html")

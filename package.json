@@ -1,6 +1,11 @@
 {
   "dependencies": {
-    "admin-lte": "^4.0.0-rc4",
-    "echarts": "^6.0.0"
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "admin-lte": "^3.2.0",
+    "bootstrap": "^4.6.2",
+    "chart.js": "^2.9.4",
+    "chart.min.js": "^1.2.3-0",
+    "echarts": "^6.0.0",
+    "jquery": "^3.6.4"
   }
 }
