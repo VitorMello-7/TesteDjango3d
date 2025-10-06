@@ -9,9 +9,9 @@ from .models import Coord
 
 def uploadCoord(request):
     if request.method == "POST":
-        depth = request.POST.get("depth")
-        latitude = request.POST.get("latitude")
-        longitude = request.POST.get("longitude")
+        depth = request.POST.get("Depth")
+        latitude = request.POST.get("Latitude")
+        longitude = request.POST.get("Longitude")
         coord = Coord(depth=depth, latitude=latitude, longitude=longitude)
         coord.save()
         return HttpResponse("Coordinates uploaded successfully.")
