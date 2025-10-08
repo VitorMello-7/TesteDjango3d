@@ -65,6 +65,8 @@ def data_3d(request):
             simplices = []
     return JsonResponse({'points': pontos, 'simplices': simplices})
 
+
+
 # def carregar_pontos(request):
 #     base_dir = Path(__file__).resolve().parent
 #     file_path = base_dir / 'arquivoTeste' / 'arquivo.txt'
