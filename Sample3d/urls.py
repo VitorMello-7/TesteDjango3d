@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('template/Sample3D/uploadCoord.html', views.uploadCoord, name='uploadCoord'),
+    path('', views.uploadCoord, name='uploadCoord'),
+    path('data/', views.data_3d, name='data_3d'),
 ]
