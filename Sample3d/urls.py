@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.uploadCoord, name='uploadCoord'),
-    path('data/', views.data_3d, name='data_3d'),
+    path('surface/', views.surface_from_xyz, name='surface_from_xyz'),
 ]
