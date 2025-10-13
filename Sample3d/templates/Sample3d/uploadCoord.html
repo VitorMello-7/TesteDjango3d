@@ -419,46 +419,75 @@
   document.addEventListener('DOMContentLoaded', function () {
   
   async function main() {
-      const res = await fetch("./surface/");
+      const basePath = (function(){
+        const p = window.location.pathname;
+        return p.endsWith('/') ? p : (p + '/');
+      })();
+      const res = await fetch(basePath + 'surface/');
       const { gx, gy, Z, meta } = await res.json();
 
-      // ECharts surface aceita dados organizados por linhas (y fixo) com pontos [x,y,z]
-      // Construímos um array de linhas (gy.length) e, para cada linha, um array de pontos (gx.length)
+      // Surface como lista plana de [x,y,z] (apenas pontos válidos)
       const data = [];
       if (Array.isArray(gy) && Array.isArray(gx) && Array.isArray(Z)) {
         for (let j = 0; j < gy.length; j++) {
-          const row = [];
           const zj = Z[j] || [];
           for (let i = 0; i < gx.length; i++) {
             const zVal = zj[i];
-            if (zVal == null) continue; // pula buracos na malha
-            row.push([gx[i], gy[j], zVal]);
+            if (zVal == null) continue;
+            data.push([gx[i], gy[j], zVal]);
           }
-          if (row.length) data.push(row);
         }
       }
+      console.debug('Surface points:', data.length);
 
-  const chart = echarts.init(document.getElementById('echart3d'));
-      chart.setOption({
-        backgroundColor: '#fff',
-        tooltip: {},
-        xAxis3D: { type: 'value' },
-        yAxis3D: { type: 'value' },
-        zAxis3D: { type: 'value' },
-        grid3D: {
-          axisPointer: { show: false },
-          viewControl: { distance: 140 },
-          light: { main: { intensity: 1.5 }, ambient: { intensity: 0.6 } }
-        },
-        series: [{
+  const el = document.getElementById('echart3d');
+  const chart = echarts.init(el);
+  chart.showLoading();
+      const zVals = data.map(d => d[2]);
+      const zMin = zVals.length ? Math.min(...zVals) : 0;
+      const zMax = zVals.length ? Math.max(...zVals) : 1;
+      const xMin = gx && gx.length ? Math.min(...gx) : undefined;
+      const xMax = gx && gx.length ? Math.max(...gx) : undefined;
+      const yMin = gy && gy.length ? Math.min(...gy) : undefined;
+      const yMax = gy && gy.length ? Math.max(...gy) : undefined;
+
+      const series = [];
+      if (data.length > 0) {
+        series.push({
           type: 'surface',
           data,
           wireframe: { show: false },
           shading: 'realistic',
           realisticMaterial: { roughness: 0.8 },
           itemStyle: { opacity: 0.95 }
-        }]
+        });
+      } else {
+        console.warn('Surface vazio, exibindo scatter3D como fallback.');
+        series.push({ type: 'scatter3D', data, symbolSize: 4, itemStyle: { color: '#1f78b4' } });
+      }
+
+      chart.setOption({
+        backgroundColor: '#fff',
+        tooltip: {},
+        xAxis3D: { type: 'value', min: xMin, max: xMax, name: 'Lon' },
+        yAxis3D: { type: 'value', min: yMin, max: yMax, name: 'Lat' },
+        zAxis3D: { type: 'value', min: zMin, max: zMax, name: 'Depth' },
+        grid3D: {
+          axisPointer: { show: false },
+          viewControl: { distance: 140 },
+          light: { main: { intensity: 1.5 }, ambient: { intensity: 0.6 } }
+        },
+        visualMap: {
+          show: true,
+          min: zMin,
+          max: zMax,
+          dimension: 2,
+          inRange: { color: ['#313695','#74add1','#ffffbf','#fdae61','#d73027'] }
+        },
+        series
       });
+      chart.hideLoading();
+      window.addEventListener('resize', () => chart.resize());
     }
     main();
 
