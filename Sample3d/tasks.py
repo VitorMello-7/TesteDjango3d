@@ -29,3 +29,5 @@ def triDelaunay():
     return tri.simplices.tolist()
 
 # print(triDelaunay())
+
+# criando malha de superfície 3D
